@@ -30,7 +30,14 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
     const saveStudent = (imageData) => {
         const student = new Student(newId, username, password, grade, mobileNumber, imageData);
         studentService.store(student);
-        localStorage.setItem('currentUser', JSON.stringify(student));
+        
+        localStorage.setItem('currentUser', JSON.stringify({
+            id: student.id,
+            username: student.username,
+            userType: 'student',
+            data: student
+        }));
+        
         location.href = 'index.html';
     };
 
