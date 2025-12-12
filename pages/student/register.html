@@ -18,17 +18,17 @@
                         <form id="registerForm">
                             <div class="mb-3">
                                 <label for="regUsername" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="regUsername" required>
+                                <input type="text" class="form-control" id="regUsername" >
                             </div>
 
                             <div class="mb-3">
                                 <label for="regPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="regPassword" required>
+                                <input type="password" class="form-control" id="regPassword" >
                             </div>
 
                             <div class="mb-3">
                                 <label for="regGrade" class="form-label">Grade</label>
-                                <select class="form-select" id="regGrade" required>
+                                <select class="form-select" id="regGrade" >
                                     <option value="">Select Grade</option>
                                     <option value="1">Grade 1</option>
                                     <option value="2">Grade 2</option>
@@ -38,7 +38,7 @@
 
                             <div class="mb-3">
                                 <label for="regMobile" class="form-label">Mobile Number</label>
-                                <input type="tel" class="form-control" id="regMobile" required>
+                                <input type="tel" class="form-control" id="regMobile" >
                             </div>
 
                             <div class="mb-3">
@@ -61,5 +61,10 @@
             </div>
         </div>
     </div>
+
+    <script src="../../core/services/StorageService.js"></script>
+    <script src="../../core/services/StudentService.js"></script>
+    <script src="../../core/models/Student.js"></script>
+    <script src="../../js/register.js"></script>
 </body>
 </html>
