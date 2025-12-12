@@ -12,16 +12,22 @@ class TeacherService extends StorageService {
         return this.getItem('teachers');
     }
 
-    exams(teacherId) {
+    getById(teacherId) {
+        let teachers = this.get();
+        return teachers.find(function (teacher) {
+            return teacher.id === teacherId
 
-        let exams = this.getItem('exams');
-
-        return exams.filter(function (exam, index, exams) {
-
-            return exam.teacherId === teacherId;
         });
 
     }
+    getExams(teacherId) {
 
+        let exams = this.getItem('exams');
+
+        return exams.filter(function (exam) {
+
+            return exam.teacherId === teacherId;
+        });
+    }
 
 }
