@@ -30,4 +30,11 @@ class TeacherService extends StorageService {
         });
     }
 
+    getByUsername(username) {
+        let teachers = this.get();
+        return teachers.find(function (teacher) {
+            return teacher.username == username;
+        });
+    }
+
 }

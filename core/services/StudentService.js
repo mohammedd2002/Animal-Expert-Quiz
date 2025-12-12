@@ -20,5 +20,12 @@ class StudentService extends StorageService {
 
         });
     }
+
+    getByUsername(username) {
+        let students = this.get();
+        return students.find(function (student) {
+            return student.username == username;
+        });
+    }
 }
 
