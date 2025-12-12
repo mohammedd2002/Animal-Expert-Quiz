@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Teacher Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/teacher/style.css">
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header">
+        <h1>Teacher Dashboard</h1>
+    </div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <li class="nav-item" role="presentation">
+            <a class="nav-link " href="home.html" type="button" role="tab" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" href="create-exam.html" type="button" role="tab" aria-selected="true">Create
+                Exam</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link " href="assign-students.html" type="button" role="tab" aria-selected="true">Assign
+                Students</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link " href="manage-exams.html" type="button" role="tab" aria-selected="true">Manage Exams</a>
+        </li>
+
+
+    </ul>
+
+    <!-- content -->
+
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Create Exam</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Exam Name </label>
+                    <input type="text" class="form-control" placeholder="Enter Exam Name ">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Question 1:</label>
+                    <input type="text" class="form-control" placeholder="Enter question">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Image:</label>
+                    <input type="file" class="form-control">
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Choice A:</label>
+                        <input type="text" class="form-control" placeholder="Choice A">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Choice B:</label>
+                        <input type="text" class="form-control" placeholder="Choice B">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Choice C:</label>
+                        <input type="text" class="form-control" placeholder="Choice C">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Choice D:</label>
+                        <input type="text" class="form-control" placeholder="Choice D">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Correct Answer:</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="correct" id="a">
+                        <label class="form-check-label" for="a">A</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="correct" id="b">
+                        <label class="form-check-label" for="b">B</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="correct" id="c">
+                        <label class="form-check-label" for="c">C</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="correct" id="d">
+                        <label class="form-check-label" for="d">D</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Level:</label>
+                        <select class="form-select">
+                            <option>Easy</option>
+                            <option>Medium</option>
+                            <option>Hard</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Score:</label>
+                        <input type="number" class="form-control" value="5">
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary">Add Another Question</button>
+                    <button class="btn btn-success">Save Exam</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
