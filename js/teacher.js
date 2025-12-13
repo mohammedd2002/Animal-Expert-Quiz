@@ -119,22 +119,31 @@ saveBtn.onclick = function () {
 
         var questionId = questionService.get().length + 1;
 
+        var choiceA = new Choice(choiceService.get().length + 1, a, correct == 'A', questionId);
+        choiceService.store(choiceA);
+
+        var choiceB = new Choice(choiceService.get().length + 1, b, correct == 'B', questionId);
+        choiceService.store(choiceB);
+
+        var choiceC = new Choice(choiceService.get().length + 1, c, correct == 'C', questionId);
+        choiceService.store(choiceC);
+
+        var choiceD = new Choice(choiceService.get().length + 1, d, correct == 'D', questionId);
+        choiceService.store(choiceD);
+
+        var choicesArray = [choiceA, choiceB, choiceC, choiceD];
+
         var question = new Question(
             questionId,
             text,
             imagePath,
             level,
             score,
-            [],
+            choicesArray, 
             examId
         );
 
         questionService.store(question);
-
-        choiceService.store(new Choice(choiceService.get().length + 1, a, correct == 'A', questionId));
-        choiceService.store(new Choice(choiceService.get().length + 1, b, correct == 'B', questionId));
-        choiceService.store(new Choice(choiceService.get().length + 1, c, correct == 'C', questionId));
-        choiceService.store(new Choice(choiceService.get().length + 1, d, correct == 'D', questionId));
     }
 
     if (totalScore !== 100) {
