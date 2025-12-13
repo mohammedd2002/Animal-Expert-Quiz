@@ -25,9 +25,9 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
         }));
 
         if (userType == 'student') {
-            window.location.href = 'index.html';
+            window.location.href = 'pages/student/index.html';
         } else {
-            window.location.href = '../teacher/home.html';
+            window.location.href = 'pages/teacher/home.html';
         }
     } else {
         error.textContent = 'Invalid username or password';

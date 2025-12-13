@@ -51,5 +51,5 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
         data: student
     }));
 
-    location.href = 'index.html';
+    location.href = 'pages/student/index.html';
 });
