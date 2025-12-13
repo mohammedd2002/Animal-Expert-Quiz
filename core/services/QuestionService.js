@@ -29,5 +29,10 @@ class QuestionService extends StorageService {
             return question.examId == examId;
         });
     }
+
+    getChoices(questionId) {
+
+        return (new ChoiceService()).getByQuestion(questionId);
+    }
 }
 

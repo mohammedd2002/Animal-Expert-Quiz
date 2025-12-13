@@ -29,4 +29,35 @@ class ExamService extends StorageService {
         })
     }
 
+    assignStudents(examId, studentIds) {
+
+        let examStudents = this.getItem("examStudents");
+
+        studentIds.map(function (studentId) {
+
+            return examStudents.push(new ExamStudent(null, examId, studentId));
+
+        });
+
+    }
+    getStudents(examId) {
+        let examStudents = this.getItem("examStudents");
+
+        let studentIds = examStudents.filter(function (examStudent) {
+
+            return examStudent.examId === examId;
+        }).map(function (examStudent) {
+
+            return examStudent.studentId;
+        });
+
+        let students = (new StudentService()).get();
+
+        return students.filter(function (student) {
+
+            return studentIds.includes(student.id);
+        })
+
+    }
+
 }
