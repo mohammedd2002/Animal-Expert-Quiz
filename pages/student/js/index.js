@@ -1,7 +1,7 @@
 let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
 if (!currentUser) {
-    window.location.href = 'login.html';
+    window.location.href = '../../login.html';
 } else {
     let userData = currentUser.data || currentUser;
 
