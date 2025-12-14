@@ -13,18 +13,33 @@ addQuesionButton.addEventListener("click", function (event) {
 // static techer now 
 
 let teacherService = new TeacherService();
-
 let teacher = teacherService.getById(1);
-
-let examName = document.getElementById("exam_name");
-let examQuestion = document.getElementById("exam_question");
-let examImage = document.getElementById("exam_image");
-let examChoice = document.querySelectorAll(".exam_choice");
-let examCorrect = document.querySelector("input[name='exam_correct']:checked");
+let examService= new  ExamService();
 
 
-let examLevel = document.getElementById("exam_level");
-let examScore = document.getElementById("exam_score");
+let saveExamBtn = document.getElementById("exam_save");
+
+saveExamBtn.addEventListener("click", function (event) {
+
+    let examName = document.getElementById("exam_name").value;
+    let examQuestion = document.getElementById("exam_question").value;
+    let examImage = document.getElementById("exam_image").value;
+    let examChoices = document.querySelectorAll(".exam_choice");
+    let examCorrect = document.querySelector("input[name='exam_correct']:checked").value;
+    let examLevel = document.getElementById("exam_level").value;
+    let examScore = document.getElementById("exam_score").value;
+
+    
+
+    let exam= new Exam()
+
+
+
+
+
+
+});
+
 
 
 

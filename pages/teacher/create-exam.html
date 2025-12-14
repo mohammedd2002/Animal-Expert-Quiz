@@ -38,97 +38,109 @@
 
     <!-- content -->
 
-  <div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Create Exam</h5>
-        </div>
-        <div class="card-body">
-            <div class="mb-3">
-                <label class="form-label">Exam Name</label>
-                <input type="text" class="form-control" id="examName" placeholder="Enter exam name" required>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Create Exam</h5>
             </div>
+            <div class="card-body exam">
+                <div class="mb-3">
+                    <label class="form-label">Exam Name </label>
+                    <input type="text" class="form-control" required name="exam_name" id="exam_name"
+                        placeholder="Enter Exam Name ">
+                </div>
+                <!-- question row -->
+                <div id="questions">
+                    <div class="question-row">
 
-            <div id="questionsContainer">
-                <div class="question-block border rounded p-3 mb-3">
-                    <h6 class="text-secondary mb-3">Question 1</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Question :</label>
+                            <input type="text" class="form-control" required name="exam_question" id="exam_question"
+                                placeholder="Enter question">
+                        </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Question Text</label>
-                        <input type="text" class="form-control question-text" placeholder="Enter question" required>
-                    </div>
+                        <div class="mb-3">
+                            <label class="form-label">Image:</label>
+                            <input type="file" name="exam_image" required id="exam_image" class="form-control">
+                        </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Image (optional)</label>
-                        <input type="file" class="form-control question-image">
-                    </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Choice A:</label>
+                                <input type="text" class="form-control exam_choice"  required name="exam_choice" value="a"
+                                    placeholder="Choice A">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Choice B:</label>
+                                <input type="text" class="form-control exam_choice" required name="exam_choice" value="b"
+                                    placeholder="Choice B">
+                            </div>
+                        </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Choice A</label>
-                            <input type="text" class="form-control choice-a" placeholder="Choice A" required>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Choice C:</label>
+                                <input type="text" class="form-control exam_choice" required name="exam_choice" value="c"
+                                    placeholder="Choice C">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Choice D:</label>
+                                <input type="text" class="form-control exam_choice" required name="exam_choice" value="d"
+                                    placeholder="Choice D">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Choice B</label>
-                            <input type="text" class="form-control choice-b" placeholder="Choice B" required>
-                        </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Choice C</label>
-                            <input type="text" class="form-control choice-c" placeholder="Choice C" required>
+                        <div class="mb-3">
+                            <label class="form-label">Correct Answer:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input  exam_correct" type="radio"required value="a" name="exam_correct"
+                                    id="a">
+                                <label class="form-check-label" for="a">A</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input  exam_correct" type="radio"required value="b" name="exam_correct"
+                                    id="b">
+                                <label class="form-check-label" for="b">B</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input  exam_correct" type="radio"required value="c" name="exam_correct"
+                                    id="c">
+                                <label class="form-check-label" for="c">C</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input  exam_correct" type="radio"required value="d" name="exam_correct"
+                                    id="d">
+                                <label class="form-check-label" for="d">D</label>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Choice D</label>
-                            <input type="text" class="form-control choice-d" placeholder="Choice D" required>
-                        </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Correct Answer</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="correct0" value="a" required>
-                            <label class="form-check-label">A</label>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Level:</label>
+                                <select name="exam_level" required id="exam_level" class="form-select">
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Score:</label>
+                                <input type="number" required class="form-control" id="exam_score" name="exam_score" value="5">
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="correct0" value="b">
-                            <label class="form-check-label">B</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="correct0" value="c">
-                            <label class="form-check-label">C</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="correct0" value="d">
-                            <label class="form-check-label">D</label>
-                        </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Difficulty</label>
-                            <select class="form-select difficulty" required>
-                                <option value="easy">Easy</option>
-                                <option value="medium">Medium</option>
-                                <option value="hard">Hard</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Score</label>
-                            <input type="number" class="form-control score" value="5" min="1" required>
-                        </div>
+                        <hr>
                     </div>
                 </div>
-            </div>
 
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary" id="addQuestionBtn">Add Question</button>
-                <button class="btn btn-success" id="saveExamBtn">Save Exam</button>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary " id="add-question">Add Another Question</button>
+                    <button id="exam_save" class="btn btn-success">Save Exam</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- scripts -->

@@ -57,6 +57,14 @@ class ExamService extends StorageService {
 
             return studentIds.includes(student.id);
         })
+    }
+
+    getNextId(){
+
+        let exams = this.get();
+
+        exams.reduce(func)
+
 
     }
 
