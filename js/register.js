@@ -44,7 +44,7 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
 
     studentService.store(student);
 
-    localStorage.setItem('currentUser', JSON.stringify({
+    localStorage.setItem('currentStudent', JSON.stringify({
         id: student.id,
         username: student.username,
         userType: 'student',

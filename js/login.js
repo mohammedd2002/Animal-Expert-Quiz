@@ -1,37 +1,33 @@
 document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    let username = document.getElementById('loginUsername').value;
-    let password = document.getElementById('loginPassword').value;
-    let userType = document.getElementById('userType').value;
-    let error = document.getElementById('Error');
+    var username = document.getElementById('loginUsername').value;
+    var password = document.getElementById('loginPassword').value;
+    var userType = document.getElementById('userType').value;
+    var error = document.getElementById('Error');
 
-    let user = null;
+    var user = null;
 
     if (userType == 'student') {
-        let studentService = new StudentService();
+        var studentService = new StudentService();
         user = studentService.getByUsername(username);
     } else {
-        let teacherService = new TeacherService();
+        var teacherService = new TeacherService();
         user = teacherService.getByUsername(username);
     }
 
     if (user && user.password == password) {
-        localStorage.setItem('currentUser', JSON.stringify({
-            id: user.id,
-            username: user.username,
-            userType: userType,
-            data: user
-        }));
-
-        if (userType == 'student') {
-            window.location.href = 'pages/student/index.html';
-        } else {
+        
+        if (userType == 'teacher') {
+            localStorage.setItem('currentTeacher', JSON.stringify(user));
             window.location.href = 'pages/teacher/home.html';
+        } else {
+            localStorage.setItem('currentStudent', JSON.stringify(user));
+            window.location.href = 'pages/student/index.html';
         }
+        
     } else {
         error.textContent = 'Invalid username or password';
         error.classList.remove('d-none');
     }
 });
-
