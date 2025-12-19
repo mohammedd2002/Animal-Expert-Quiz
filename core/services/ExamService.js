@@ -20,6 +20,16 @@ class ExamService extends StorageService {
         });
     }
 
+
+    getByTeacherId(teacherId) {
+        let exams = this.get();
+        return exams.filter(function (exam) {
+
+            return exam.teacherId === teacherId;
+        });
+
+    }
+
     getQuestions(examId) {
 
         let questions = this.getItem('questions');
@@ -59,13 +69,34 @@ class ExamService extends StorageService {
         })
     }
 
-    getNextId(){
+    update(examUpdated) {
 
         let exams = this.get();
 
-        exams.reduce(func)
+        exams = exams.map(function (exam) {
+
+            if (exam.id === examUpdated.id) {
+
+                return examUpdated;
+            } else {
+                return exam;
+            }
+
+        });
+
+        this.setItem('exams', exams);
 
 
     }
 
+    delete(examId) {
+        let exams = this.get();
+
+        exams = exams.filter(function (exam) {
+
+            return exam.id !== examId;
+        });
+
+        this.setItem('exams', exams);
+    }
 }

@@ -54,7 +54,7 @@
 
             <div class="card-header bg-primary text-white">
                 
-                <h5 class="mb-0">Create Exam</h5>
+                <h5 class="mb-0">Edit Exam</h5>
             </div>
             <div class="card-body exam">
                 <div class="row mb-3">
@@ -63,19 +63,17 @@
                         <input type="text" class="form-control" required name="exam_name" id="exam_name"
                             placeholder="Enter Exam Name">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label">Duration</label>
                         <input type="number" class="form-control" required name="exam_duration"
-                            id="exam_duration" min="1"  value="1">
+                            id="exam_duration" min="1"  value="">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label">Number of Questions</label>
-                        <input type="number" class="form-control" required name="exam_question_count"
-                            id="exam_question_count" min="1"  value="1">
+                        <input type="number" class="form-control" readonly  required name="exam_question_count"
+                            id="exam_question_count" min="1"  value="">
                     </div>
-                    <div class="col-md-2 d-flex align-items-end">
-                        <button class="btn btn-primary w-100" id="generate_questions_btn">Generate Questions</button>
-                    </div>
+                  
                 </div>
                 <div id="questions">
 
@@ -84,7 +82,7 @@
 
 
                 <div class="d-flex justify-content-end gap-2">
-                    <button id="save_exam_btn" style="display: none;" class="btn bg-primary text-white">Save
+                    <button id="update_exam_btn"  class="btn bg-primary text-white">Update
                         Exam</button>
                 </div>
             </div>
@@ -108,6 +106,8 @@
 
 
     <script src="../../core/services/StorageService.js"></script>
+  
+    <script src="../../core/services/StudentService.js"></script>
     <script src="../../core/services/ErrorService.js"></script>
     <script src="../../core/services/FileService.js"></script>
     <script src="../../core/services/ChoiceService.js"></script>
@@ -115,7 +115,7 @@
     <script src="../../core/services/TeacherService.js"></script>
     <script src="../../core/services/ExamService.js"></script>
 
-    <script src="../../assets/js/create-eaxm.js"></script>
+    <script src="../../assets/js/edit-exam.js"></script>
 </body>
 
 </html>

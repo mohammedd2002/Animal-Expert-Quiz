@@ -35,46 +35,37 @@ class QuestionService extends StorageService {
         return (new ChoiceService()).getByQuestion(questionId);
 
     }
-    update(questionId, updatedQuestion) {
+    update(questionUpdated) {
         let questions = this.get();
-        let index = -1;
 
-        for (let i = 0; i < questions.length; i++) {
-            if (questions[i].id == questionId) {
-                index = i;
-                break;
+        questions = questions.map(function (question) {
+            if (question.id === questionUpdated.id) {
+                return questionUpdated;
+            } else {
+                return question;
             }
-        }
+        });
 
-        if (index !== -1) {
-            for (let key in updatedQuestion) {
-                questions[index][key] = updatedQuestion[key];
-            }
-
-            this.setItem('questions', questions);
-            return true;
-        }
-
-        return false;
+        this.setItem('questions', questions);
     }
-
 
     delete(questionId) {
-
         let questions = this.get();
-        let filteredQuestions = questions.filter(function (question) {
-            return question.id != questionId;
+
+        questions = questions.filter(function (question) {
+            return question.id !== questionId;
         });
-        this.setItem('questions', filteredQuestions);
+
+        this.setItem('questions', questions);
     }
 
-    deleteByExam(examId) {
+    // deleteByExam(examId) {
 
-        let questions = this.get();
-        let filteredQuestions = questions.filter(function (question) {
-            return question.examId != examId;
-        });
-        this.setItem('questions', filteredQuestions);
-    }
+    //     let questions = this.get();
+    //     let filteredQuestions = questions.filter(function (question) {
+    //         return question.examId != examId;
+    //     });
+    //     this.setItem('questions', filteredQuestions);
+    // }
 }
 

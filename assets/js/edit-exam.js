@@ -1,133 +1,181 @@
-let errorService = new ErrorService();
-// ================ Add Question Element  ===============
 
-let generateQuestionsBtn = document.getElementById("generate_questions_btn");
-let questionsElement = document.getElementById("questions");
+// =================== Errors ===================
+
+let errorService = new ErrorService();
 let divErrors = document.getElementById("errors");
 let divSuccess = document.getElementById("success");
 
-let saveExamBtn = document.getElementById("save_exam_btn");
+// =============== Services =======================
+const examService = new ExamService();
+const questionService = new QuestionService();
+const choiceService = new ChoiceService();
+
+// =================== Get Exam Id ===================
+let search = window.location.search;
+let params = new URLSearchParams(search);
+let examId = Number(params.get("examId"));
+
+// =================== Check Can Be Update Or Not  ============
+
+if (examService.getStudents(examId).length > 0) {
+    
+    const hasStudentsMessage = true;
+
+    window.location.href = `../../pages/teacher/home.html?hasStudentsMessage=${hasStudentsMessage}`;
+}
+
+// =================== Get Exam ===================
+
+const exam = examService.getById(examId);
+
+// =================== Show Exam Data ===================
+document.getElementById("exam_name").value = exam.examName;
+document.getElementById("exam_duration").value = Number(exam.durationMinutes);
+document.getElementById("exam_question_count").value = Number(exam.questionsCount);
 
 
-generateQuestionsBtn.addEventListener("click", function () {
+// =================== Show Exam Questions ================
 
-    questionsElement.innerHTML = "";
-    divErrors.innerHTML = "";
-    divSuccess.innerHTML = "";
+let questionsElement = document.getElementById("questions");
+const questions = questionService.getByExam(examId);
+questionsElement.innerHTML = "";
+questions.forEach(function (question, index) {
 
-    const questionNumber =
-        Number(document.getElementById("exam_question_count").value);
+    const questionRow = createQuestion(index + 1);
+    // =================== Show Question Data ====================
+    questionRow.querySelector(".question_title").value = question.questionText;
+    questionRow.querySelector(".question_level").value = question.difficulty;
+    questionRow.querySelector(".question_score").value = Number(question.score);
 
-    if (isNaN(questionNumber) || questionNumber < 2) {
-        divErrors.appendChild(
-            createErrorAlert("Must enter a valid number of questions (minimum 15)")
-        );
-        return;
-    }
+    //========================Show Choices Data ==================
+    const choices = choiceService.getByQuestion(question.id);
 
-    saveExamBtn.style.display = "block";
+    const choiceInputs = questionRow.querySelectorAll(".question_choice");
 
-    for (let i = 0; i < questionNumber; i++) {
-        questionsElement.appendChild(createQuestion(i + 1));
-    }
+    const correctAnswerInputs = questionRow.querySelectorAll(".question_correct");
+
+    choices.forEach(function (choice, index) {
+        choiceInputs[index].value = choice.answerText;
+
+        if (choice.isCorrect) {
+            correctAnswerInputs[index].checked = true;
+        }
+    });
+    //========================Delete Question Btn ==================
+    const deleteQuestionBtn = questionRow.querySelector(".delete-question-btn");
+
+    deleteQuestionBtn.addEventListener("click", function (event) {
+        errorService.clear();
+        divErrors.innerHTML = "";
+        divSuccess.innerHTML = "";
+
+        if (validateDeleteQuestion()) {
+            handleDeleteQuestion(questionRow, question.id);
+
+            divSuccess.appendChild(createSuccessAlert("Exam Question Deleted Successfully"));
+            window.scrollTo({ top: 0, left: 0 });
+
+        } else {
+
+            errorService.getAll().forEach(error => {
+                divErrors.appendChild(createErrorAlert(error));
+            });
+            window.scrollTo({ top: 0, left: 0 });
+        }
+    });
+
+    questionsElement.appendChild(questionRow);
+
 });
-saveExamBtn.addEventListener("click", function (event) {
 
+
+// =================== Update Exam  ================
+
+const updateExamBtn = document.getElementById("update_exam_btn");
+updateExamBtn.addEventListener("click", function () {
     errorService.clear();
     divErrors.innerHTML = "";
     divSuccess.innerHTML = "";
 
-    if (validateStoreExam()) {
-        handleStorExam();
-        divSuccess.appendChild(createSuccessAlert("Exam Created Successfully"));
-        questionsElement.innerHTML = "";
-        document.getElementById("exam_name").value = "";
-        document.getElementById("exam_duration").value = "";
-        document.getElementById("exam_question_count").value = "";
-        saveExamBtn.style.display = "none";
+    if (validateUpdateExam()) {
+        handleUpdateExam();
+
+        divSuccess.appendChild(createSuccessAlert("Exam Updated Successfully"));
         window.scrollTo({ top: 0, left: 0 });
     } else {
         errorService.getAll().forEach(error => {
             divErrors.appendChild(createErrorAlert(error));
         });
+
         window.scrollTo({ top: 0, left: 0 });
     }
 });
 
-function handleStorExam(event) {
+function handleUpdateExam() {
 
+    // =================== Update Exam ===================
+    const exam = examService.getById(examId);
 
+    exam.examName = document.getElementById("exam_name").value.trim();
+    exam.durationMinutes = Number(document.getElementById("exam_duration").value);
+    exam.questionsCount = Number(document.getElementById("exam_question_count").value);
 
-    const storageService = new StorageService();
-    const examService = new ExamService();
-    const questionService = new QuestionService();
-    const choiceService = new ChoiceService();
+    examService.update(exam);
+    // =================== Update Questions And Choices ============
 
-
-    const examId = storageService.getNextIdForItem('exams');
-    const teacher = AuthTeacherService.currentTeacher();
-    const examName = document.getElementById("exam_name").value;
-    const examDurationMinutes = document.getElementById("exam_duration").value;
-    const questionsCount = Number(document.getElementById("exam_question_count").value);
-
-
-    const exam = new Exam(
-        examId,
-        examName,
-        examDurationMinutes,
-        questionsCount,
-        teacher.id
-    );
-    examService.store(exam);
+    // =================== Update Questions ===========
+    const oldQuestions = examService.getQuestions(examId);
 
     const questionRows = document.querySelectorAll(".question-row");
 
+    questionRows.forEach(function (questionRow, index) {
 
-    questionRows.forEach(function (questionRow) {
+        let questionUpdated = oldQuestions[index];
 
-        const questionId = storageService.getNextIdForItem("questions");
         const questionTitle = questionRow.querySelector(".question_title").value;
-        const questionImage = FileService.getImageName(questionRow.querySelector(".question_image"));
         const questionLevel = questionRow.querySelector(".question_level").value;
         const questionScore = Number(questionRow.querySelector(".question_score").value);
 
 
-        questionService.store(new Question(
-            questionId,
-            questionTitle,
-            questionImage,
-            questionLevel,
-            questionScore,
-            examId
-        ));
 
+        const questionImageInput = questionRow.querySelector(".question_image");
 
-        const correctAnswer =
-            questionRow.querySelector(".question_correct:checked").value;
+        let questionImage = questionUpdated.image;
 
-        const choiceInputs =
-            questionRow.querySelectorAll(".question_choice");
+        if (FileService.getImageName(questionImageInput)) {
+            questionImage = FileService.getImageName(questionImageInput);
+        }
 
+        questionUpdated.questionText = questionTitle;
+        questionUpdated.image = questionImage;
+        questionUpdated.difficulty = questionLevel;
+        questionUpdated.score = questionScore;
 
-        choiceInputs.forEach(function (choiceInput) {
+        questionService.update(questionUpdated);
 
-            const choiceId = storageService.getNextIdForItem("choices");
+        // =================== Update Choices ===========
+
+        let oldChoices = questionService.getChoices(questionUpdated.id);
+
+        const choiceInputs = questionRow.querySelectorAll(".question_choice");
+
+        const questionCorrectAnswer = questionRow.querySelector(".question_correct:checked").value;
+        choiceInputs.forEach(function (choiceInput, index) {
+
+            let choiceUpdated = oldChoices[index];
+
             const choiceAnswerText = choiceInput.value;
-            const choiceIsCorrect = choiceInput.value.toLowerCase() === correctAnswer;
+            const choiceIsCorrect = choiceInput.value.toLowerCase() === questionCorrectAnswer;
 
-            const choice = new Choice(
-                choiceId,
-                choiceAnswerText,
-                choiceIsCorrect,
-                questionId
-            );
-            choiceService.store(choice);
+            choiceUpdated.choiceAnswerText = choiceAnswerText;
+            choiceUpdated.choiceIsCorrect = choiceIsCorrect;
+
+            choiceService.update(choiceUpdated);
         });
 
     });
 }
-
-function validateStoreExam() {
+function validateUpdateExam() {
 
 
 
@@ -145,7 +193,7 @@ function validateStoreExam() {
     }
 
 
-    if (questionsCount < 2) {
+    if (questionsCount < 4) {
         errorService.add("Exam Must Have At Least 15 Questions");
     }
 
@@ -167,7 +215,6 @@ function validateStoreExam() {
 
 
         const questionTitle = questionRow.querySelector(".question_title").value.trim();
-        const questionImage = FileService.getImageName(questionRow.querySelector(".question_image"));
         const questionScore = Number(questionRow.querySelector(".question_score").value);
         const questionLevel = questionRow.querySelector(".question_level").value;
         const correctAnswer = questionRow.querySelector(".question_correct:checked");
@@ -176,10 +223,7 @@ function validateStoreExam() {
         if (questionTitle === "") {
             errorService.add(`Question ${questionNumber}: title is required`);
         }
-        // question image 
-        if (questionImage === null) {
-            errorService.add(`Question ${questionNumber}: image is required`);
-        }
+
 
         // question choices
         let choiceInputNumber = 0;
@@ -214,12 +258,32 @@ function validateStoreExam() {
     }
 
 
-    if (levels.easy === 0 || levels.medium  === 0 || levels.hard === 0) {
+    if (levels.easy === 0 || levels.medium === 0 || levels.hard === 0) {
         errorService.add("Exam must include Easy, Medium, Hard ");
     }
 
     return !errorService.hasErrors();
 
+}
+
+// =================== Delete Question ================
+
+function handleDeleteQuestion(questionRow, questionId) {
+
+    questionRow.remove();
+    questionService.delete(questionId);
+}
+
+
+function validateDeleteQuestion(minQuestions = 4) {
+
+    const questionRows = document.querySelectorAll(".question-row");
+    let questionsCount = questionRows.length;
+    if (questionsCount <= minQuestions) {
+        errorService.add("Exam Must Have At Least 15 Questions");
+    }
+
+    return !errorService.hasErrors();
 }
 
 
@@ -235,7 +299,7 @@ function createQuestion(number) {
     // ==============  Question Title ===========
     const questionTitleLabel = createLabel("Question  :" + number);
     const questionTitleInput = createInput("text", "form-control question_title", "", "Enter question");
-    const questionTitleGroup = createGroupInput("mb-3");
+    const questionTitleGroup = createGroupInput("mb-3 ");
 
     questionTitleGroup.appendChild(questionTitleLabel);
     questionTitleGroup.appendChild(questionTitleInput);
@@ -303,27 +367,39 @@ function createQuestion(number) {
     const questionLevelLabel = createLabel("Level:");
 
     const questionLevelSelectInput = createSelect("form-select question_level", levelOption);
-    const questionLevelSelectInputGroup = createGroupInput("col-md-6");
+    const questionLevelSelectInputGroup = createGroupInput("col-md-5");
 
     questionLevelSelectInputGroup.appendChild(questionLevelLabel);
     questionLevelSelectInputGroup.appendChild(questionLevelSelectInput);
 
     // ======= Score
 
-
     const questionScoreLabel = createLabel("Score:");
     const questionScoreInput = createInput("number", "form-control question_score", "question_score", "", 5);
-    const questionScoreGroup = createGroupInput("col-md-6");
+    const questionScoreGroup = createGroupInput("col-md-5");
 
     questionScoreGroup.appendChild(questionScoreLabel);
     questionScoreGroup.appendChild(questionScoreInput);
 
+    // ============== Delete Question Btn ===========
+    const deleteQuestionBtn = createBtn(
+        "Delete Question",
+        "button",
+        "btn btn-danger delete-question-btn w-100 h-70"
+    );
+
+    const deleteQuestionGroup = createGroupInput(
+        "col-md-2 d-flex align-items-end"
+    );
+
+    deleteQuestionGroup.appendChild(deleteQuestionBtn);
+
     // =======Level And  Score Group 
     questionLevelAndScoreGroup.appendChild(questionLevelSelectInputGroup);
     questionLevelAndScoreGroup.appendChild(questionScoreGroup);
+    questionLevelAndScoreGroup.appendChild(deleteQuestionGroup);
 
     const hrElement = createHr();
-
 
 
     // Append Inputs To Question Row 
@@ -340,30 +416,6 @@ function createQuestion(number) {
 
 
 // ================ Create Basic Elemets   =====================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function createInput(type = "text", className, name, placeholder, value) {
 
     const input = document.createElement("input");
@@ -444,6 +496,16 @@ function createSuccessAlert(message) {
     return alert;
 }
 
+function createBtn(btnText = "", btnType = "button", btnClass = "btn btn-danger delete-question-btn", btnValue = "") {
+    let button = document.createElement("button");
+
+    button.innerText = btnText;
+    button.type = btnType;
+    button.className = btnClass;
+    button.value = btnValue;
+
+    return button;
+}
 
 
 

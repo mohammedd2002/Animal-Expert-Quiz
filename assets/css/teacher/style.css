@@ -19,3 +19,10 @@
 
 }
 
+hr {
+
+    height: 5px;
+    background-color: gray;
+    border: none;
+    margin: 20px 0;
+}

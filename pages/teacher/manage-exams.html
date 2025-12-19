@@ -8,6 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/teacher/style.css">
+
+    <script src="../../core/services/AuthTeacherService.js"></script>
+
+    <script src="../../assets/js/dashboard-teacher.js"></script>
 </head>
 
 <body>
@@ -40,44 +44,65 @@
     <!-- content -->
 
     <div class="container mt-5">
-        <div class="card shadow-sm" style="max-width: 400px; margin: auto;">
+        <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Assign Students to Exam</h5>
+                <h5 class="mb-0">Results:</h5>
             </div>
             <div class="card-body">
+                <div id="errors">
+
+                </div>
+                <div id="success">
+
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Select Exam:</label>
-                    <select class="form-select">
-                        <option>Animals</option>
-                        <option>History</option>
-                        <option>Math</option>
+                    <select class="form-select" id="exam_id" name="exam_id">
+
+                        <option selected disabled >Select Exam</option>
+   
                     </select>
                 </div>
 
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="s1">
-                    <label class="form-check-label" for="s1">Student 1</label>
+                <!-- Accordion -->
+                <div class="accordion" id="student-results-accordion">
+                   
                 </div>
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="s2">
-                    <label class="form-check-label" for="s2">Student 2</label>
-                </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="s3">
-                    <label class="form-check-label" for="s3">Student 3</label>
-                </div>
-                <div class="d-grid">
-                    <button class="btn btn-success">Assign</button>
-                </div>
+                <!-- end ------- -->
             </div>
         </div>
     </div>
 
 
+
+    <script src="../../core/models/Exam.js"></script>
+    <script src="../../core/models/Question.js"></script>
+    <script src="../../core/models/Choice.js"></script>
+    <script src="../../core/models/Teacher.js"></script>
+    <script src="../../core/models/ExamStudent.js"></script>
+    <script src="../../core/models/StudentAnswers.js"></script>
+    <script src="../../core/models/StudentExamResults.js"></script>
+    <script src="../../core/models/Student.js"></script>
+
+
+    <script src="../../core/services/StorageService.js"></script>
+    <script src="../../core/services/ErrorService.js"></script>
+    <script src="../../core/services/FileService.js"></script>
+    <script src="../../core/services/ChoiceService.js"></script>
+    <script src="../../core/services/QuestionService.js"></script>
+    <script src="../../core/services/TeacherService.js"></script>
+    <script src="../../core/services/ExamService.js"></script>
+    <script src="../../core/services/ExamStudentService.js"></script>
+    <script src="../../core/services/StudentExamResultService.js"></script>
+    <script src="../../core/services/StudentService.js"></script>
+    <script src="../../core/services/StudentAnswersService.js"></script>
     <!-- scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+
+
+    <script src="../../assets/js/manage-exams.js"></script>
 </body>
 
 </html>

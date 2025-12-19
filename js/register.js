@@ -27,25 +27,29 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
     const students = studentService.get();
     const newId = students.length + 1;
 
-    const saveStudent = (imageData) => {
-        const student = new Student(newId, username, password, grade, mobileNumber, imageData);
-        studentService.store(student);
-        
-        localStorage.setItem('currentUser', JSON.stringify({
-            id: student.id,
-            username: student.username,
-            userType: 'student',
-            data: student
-        }));
-        
-        location.href = 'index.html';
-    };
+    let imagePath = '../../assets/images/default.png';
 
     if (image) {
-        const reader = new FileReader();
-        reader.onload = (e) => saveStudent(e.target.result);
-        reader.readAsDataURL(image);
-    } else {
-        saveStudent('');
+        imagePath = `../../assets/images/${image.name}`;
     }
+
+    const student = new Student(
+        newId,
+        username,
+        password,
+        grade,
+        mobileNumber,
+        imagePath
+    );
+
+    studentService.store(student);
+
+    localStorage.setItem('currentUser', JSON.stringify({
+        id: student.id,
+        username: student.username,
+        userType: 'student',
+        data: student
+    }));
+
+    location.href = 'pages/student/index.html';
 });

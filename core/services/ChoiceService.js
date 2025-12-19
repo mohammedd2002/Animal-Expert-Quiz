@@ -29,5 +29,21 @@ class ChoiceService extends StorageService {
             return choice.questionId == questionId;
         });
     }
+
+    update(choiceUpdated) {
+        let choices = this.get();
+
+        choices = choices.map(function (choice) {
+            return choice.id === choiceUpdated.id ? choiceUpdated : choice;
+        });
+
+        this.setItem('choices', choices);
+    }
+
+    delete(choiceId) {
+        let choices = this.get();
+        choices = choices.filter(choice => choice.id !== choiceId);
+        this.setItem('choices', choices);
+    }
 }
 

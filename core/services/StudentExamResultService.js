@@ -22,6 +22,7 @@ class StudentExamResultService extends StorageService {
 
     getResult(examId, studentId) {
         let results = this.getItem('results');
+        
         return results.find(function (result) {
 
             return result.examId === examId && result.studentId === studentId;

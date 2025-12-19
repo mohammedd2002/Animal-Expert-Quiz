@@ -9,6 +9,9 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/teacher/style.css">
 
+    <script src="../../core/services/AuthTeacherService.js"></script>
+    
+    <script src="../../assets/js/dashboard-teacher.js"></script>
 
 </head>
 
@@ -41,8 +44,14 @@
     <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h2 class="mb-4">List of Exams:</h2>
 
+                <h2 class="mb-4">List of Exams:</h2>
+         <div id="errors">
+             
+            </div>
+            <div id="success">
+             
+            </div>
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
@@ -51,21 +60,22 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Animals</td>
-                            <td>10 min</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
-                                <button class="btn btn-sm btn-outline-danger">Delete</button>
-                            </td>
-                        </tr>
+                    <tbody id="exams">
+                    
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
+      <script src="../../core/models/ExamStudent.js"></script>
+    <script src="../../core/services/StorageService.js"></script>
+    <script src="../../core/services/ErrorService.js"></script>
+    <script src="../../core/services/StudentService.js"></script>
+    <script src="../../core/services/ExamService.js"></script>
+    <script src="../../core/services/ExamStudentService.js"></script>
+    
+    <script src="../../assets/js/teacher-home.js"></script>
 
 
     <!-- scripts -->

@@ -20,5 +20,17 @@ class StudentAnswersService extends StorageService {
         });
     }
 
+    getAnswer(resultId, questionId) {
+
+        let answers = this.get();
+
+        return answers.find(function (answer) {
+
+            return answer.resultId === resultId && answer.questionId === questionId;
+
+        });
+
+    }
+
 
 }
