@@ -2,7 +2,7 @@
 let storageService = new StorageService();
 let examService = new ExamService();
 let examStudentService = new ExamStudentService();
-let studentExamResultService = new StudentExamResultService();
+let studentExamResultService = new StudentExamResultsService();
 let studentAnswersService = new StudentAnswersService();
 let choiceService = new ChoiceService();
 
@@ -37,6 +37,7 @@ examIdElement.addEventListener("change", function (event) {
     examStudents.map(function (student, index) {
 
 
+    
         const studentExamResult = studentExamResultService.getResult(examId, student.id);
 
         if (studentExamResult) {
@@ -142,17 +143,16 @@ function createQuestion(number, questionText, imageSrc, studentAnswer) {
     questionTextDiv.innerText = "Q" + number + ": " + questionText;
 
 
-    const questionImage = createImage(
-        imageSrc,
+    const questionImage = createImage( "../../assets/images/default.png"
+        ,
         "img-thumbnail my-2"
     );
 
 
     const studentAnswerSpan = createSpan(
         "Student Answer: " + studentAnswer,
-        "text-danger"
+        "text-success"
     );
-
 
 
 
@@ -182,6 +182,8 @@ function createImage(src, className) {
     const img = document.createElement("img");
     img.src = src;
     img.className = className;
+    img.style.width="100px";
+    img.style.height="100px";
     return img;
 }
 

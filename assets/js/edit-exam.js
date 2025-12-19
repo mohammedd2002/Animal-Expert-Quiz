@@ -193,7 +193,7 @@ function validateUpdateExam() {
     }
 
 
-    if (questionsCount < 4) {
+    if (questionsCount < 15) {
         errorService.add("Exam Must Have At Least 15 Questions");
     }
 

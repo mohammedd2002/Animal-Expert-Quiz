@@ -145,7 +145,7 @@ function validateStoreExam() {
     }
 
 
-    if (questionsCount < 2) {
+    if (questionsCount < 15) {
         errorService.add("Exam Must Have At Least 15 Questions");
     }
 

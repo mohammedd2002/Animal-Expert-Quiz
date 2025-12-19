@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Exam Page</title>
+    <title>Exam</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -13,7 +13,7 @@
             margin-bottom: 10px;
         }
 
-        .bar {
+        .timer-bar {
             height: 12px;
             background: #ddd;
             border-radius: 10px;
@@ -21,13 +21,14 @@
             margin: 10px 0;
         }
 
-        .fill {
+        .timer-fill {
             height: 100%;
             background: #28a745;
-            width: 60%;
+            width: 100%;
+            transition: width 1s linear;
         }
 
-        .circle {
+        .question-circle {
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -41,72 +42,80 @@
         }
 
         .result-circle {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
             border: 8px solid #28a745;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
             color: #28a745;
-            font-size: 26px;
+            font-size: 32px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- TOTAL TIME -->
+    <!-- TOTAL EXAM TIMER -->
     <div class="container mt-3 text-center">
         <h5>Total Exam Time</h5>
-        <div class="bar">
-            <div class="fill"></div>
-        </div>
-        <p class="text-muted">45 minutes remaining</p>
+
+        <p class="text-muted" id="totalTimeText">Loading...</p>
     </div>
 
     <div class="container mt-4">
 
-        <!-- EXAM BOX -->
-        <div class="card p-4 shadow-sm">
+        <!-- QUESTION CARD -->
+        <div class="card p-4 shadow-sm" id="questionCard">
 
             <!-- QUESTION TIMER -->
             <div class="text-center mb-3">
                 <h6>Question Timer</h6>
-                <div class="circle">30s</div>
+                <div class="question-circle" id="questionTimer">0s</div>
             </div>
 
-            <div class="text-center mb-3 mt-4">
-                <img src="https://i.imgur.com/1u8Zs5b.jpeg" class="img-fluid rounded" style="max-height: 250px;">
+            <!-- QUESTION IMAGE -->
+            <div class="d-flex justify-content-center align-items-center mb-3 mt-4" id="imageContainer">
+                <img id="questionImage" src="" class="img-fluid rounded " style="max-height: 250px; display: none;">
             </div>
 
-            <!-- QUESTION -->
-            <h5 class="text-center mb-3">Which animal is the king of the jungle?</h5>
+            <!-- QUESTION TEXT -->
+            <h5 class="text-center mb-3" id="questionText">Loading...</h5>
 
-            <!-- ANSWERS -->
-            <button class="btn btn-outline-primary answer-btn">Elephant</button>
-            <button class="btn btn-outline-primary answer-btn">Lion</button>
-            <button class="btn btn-outline-primary answer-btn">Tiger</button>
-            <button class="btn btn-outline-primary answer-btn">Bear</button>
+            <!-- CHOICES -->
+            <div id="choicesContainer"></div>
 
-            <!-- NEXT -->
+            <!-- NEXT BUTTON -->
             <div class="text-center mt-3">
-                <button class="btn btn-primary btn-lg">Next</button>
+                <button class="btn btn-primary btn-lg" id="nextBtn" disabled>Next</button>
             </div>
 
         </div>
 
-
-        <!-- RESULT -->
-        <!-- <div class="card p-4 shadow-sm mt-4 text-center">
-
-            <h4>Result</h4>
-
-            <div class="circle result-circle">40%</div>
-            <p>You got 8 out of 20 correct.</p>
-
+        <!-- RESULT CARD (Hidden) -->
+        <div class="card p-4 shadow-sm text-center" id="resultCard" style="display: none;">
+            <h4>Exam Completed!</h4>
+            <div class="result-circle" id="resultCircle">0%</div>
+            <p id="resultText">You got 0 out of 0 correct.</p>
             <a href="index.html" class="btn btn-success btn-lg">Back to Profile</a>
-
-        </div> -->
+        </div>
 
     </div>
 
+    <script src="../../core/models/Question.js"></script>
+    <script src="../../core/models/Choice.js"></script>
+    <script src="../../core/models/StudentExamResults.js"></script>
+    <script src="../../core/models/StudentAnswers.js"></script>
+    <script src="../../core/services/StorageService.js"></script>
+    <script src="../../core/services/ExamService.js"></script>
+    <script src="../../core/services/QuestionService.js"></script>
+    <script src="../../core/services/ChoiceService.js"></script>
+    <script src="../../core/services/StudentExamResultsService.js"></script>
+    <script src="../../core/services/StudentAnswersService.js"></script>
+    <script src="js/exam.js"></script>
 </body>
 
 </html>

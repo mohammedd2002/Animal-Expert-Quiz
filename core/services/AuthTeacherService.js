@@ -11,8 +11,10 @@ class AuthTeacherService {
     }
 
     static currentTeacher() {
-        const user = JSON.parse(localStorage.getItem("currentUser"));
-        return user && user.userType === "teacher" ? user : null;
+
+        const user = JSON.parse(localStorage.getItem("currentTeacher"));
+
+        return user ? user : null;
     }
 
 
