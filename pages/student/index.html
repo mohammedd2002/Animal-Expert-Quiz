@@ -31,8 +31,7 @@
 
                 <div class="card shadow mb-4">
                     <div class="card-body text-center">
-                        <img id="profileImage" src="" alt="Profile Picture"
-                            class="profile-pic mb-3"
+                        <img id="profileImage" src="" alt="Profile Picture" class="profile-pic mb-3"
                             style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
                         <h4 id="studentName">-</h4>
                         <p class="text-muted">Grade <span id="studentGrade">-</span></p>
@@ -49,7 +48,7 @@
                         <h5>Completed Exams</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped exam-table">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Exam Name</th>
@@ -57,21 +56,9 @@
                                     <th>Date Taken</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="completedExamsBody">
                                 <tr>
-                                    <td>Animal Habitats</td>
-                                    <td>85%</td>
-                                    <td>2025-12-01</td>
-                                </tr>
-                                <tr>
-                                    <td>Mammals vs Reptiles</td>
-                                    <td>92%</td>
-                                    <td>2025-12-05</td>
-                                </tr>
-                                <tr>
-                                    <td>Birds Quiz</td>
-                                    <td>78%</td>
-                                    <td>2025-12-08</td>
+                                    <td colspan="3" class="text-center">No completed exams yet</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -83,13 +70,13 @@
                     <div class="card-header bg-warning text-dark">
                         <h5>Next (Required) Exams</h5>
                     </div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">Insects Quiz</li>
-                            <li class="list-group-item">Aquatic Animals Quiz</li>
-                            <li class="list-group-item">Amphibians Quiz</li>
-                        </ul>
-                    </div>
+                    <ul class="list-group" id="requiredExamsList">
+                        <li class="list-group-item text-center d-none" id="noRequiredExams">
+                            No exams assigned yet
+                        </li>
+                    </ul>
+
+
                 </div>
 
             </div>
@@ -97,7 +84,13 @@
         </div>
     </div>
 
+    <script src="../../core/models/Exam.js"></script>
+    <script src="../../core/models/ExamStudent.js"></script>
     <script src="../../core/services/StorageService.js"></script>
+    <script src="../../core/services/ExamService.js"></script>
+    <script src="../../core/services/ExamStudentService.js"></script>
+    <script src="../../core/services/StudentExamResultsService.js"></script>
+    <script src="../../core/services/StudentAnswersService.js"></script>
     <script src="js/index.js"></script>
 </body>
 

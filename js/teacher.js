@@ -1,3 +1,15 @@
+//logout
+let currentTeacher = JSON.parse(localStorage.getItem('currentTeacher'));
+
+if (!currentTeacher) {
+    window.location.href = '../../login.html';
+} else {
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+        localStorage.removeItem('currentTeacher');
+        window.location.href = '../../login.html';
+    });
+}
+
 var examService = new ExamService();
 var questionService = new QuestionService();
 var choiceService = new ChoiceService();
@@ -81,7 +93,7 @@ saveBtn.onclick = function () {
 
     var totalScore = 0;
 
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    var currentTeacher = JSON.parse(localStorage.getItem('currentTeacher'));
     var examId = examService.get().length + 1;
 
     var exam = new Exam(
@@ -89,7 +101,7 @@ saveBtn.onclick = function () {
         examName,
         examDuration,
         count,
-        currentUser.id
+        currentTeacher.id
     );
 
     examService.store(exam);
@@ -139,17 +151,17 @@ saveBtn.onclick = function () {
             imagePath,
             level,
             score,
-            choicesArray, 
+            choicesArray,
             examId
         );
 
         questionService.store(question);
     }
 
-    if (totalScore !== 100) {
-        showError("Total exam score must be 100");
-        return;
-    }
+    // if (totalScore !== 100) {
+    //     showError("Total exam score must be 100");
+    //     return;
+    // }
 
     window.location.href = "home.html";
 };
