@@ -143,7 +143,7 @@ function createQuestion(number, questionText, imageSrc, studentAnswer) {
     questionTextDiv.innerText = "Q" + number + ": " + questionText;
 
 
-    const questionImage = createImage( "../../assets/images/default.png"
+    const questionImage = createImage( "../../assets/images/" + imageSrc
         ,
         "img-thumbnail my-2"
     );
