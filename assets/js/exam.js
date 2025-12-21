@@ -1,23 +1,23 @@
 
 //Student login
-var currentStudent = JSON.parse(localStorage.getItem('currentStudent'));
+const currentStudent = JSON.parse(localStorage.getItem('currentStudent'));
 if (!currentStudent) {
     window.location.href = 'login.html';
 }
 
 //Services
-var examService = new ExamService();
-var questionService = new QuestionService();
-var choiceService = new ChoiceService();
-var resultsService = new StudentExamResultsService();
-var answersService = new StudentAnswersService();
+const  examService = new ExamService();
+const  questionService = new QuestionService();
+const  choiceService = new ChoiceService();
+const  resultsService = new StudentExamResultsService();
+const  answersService = new StudentAnswersService();
 
 //Url
-var url = document.URL;
-var examId = parseInt(url.split('examId=')[1]);
+const  url = document.URL;
+const  examId = parseInt(url.split('examId=')[1]);
 
 //get exam and questions
-var exam = examService.getById(examId);
+const  exam = examService.getById(examId);
 if (!exam) {
     alert('Exam not found');
     window.location.href = 'index.html';
@@ -28,7 +28,7 @@ if (resultsService.hasTakenExam(currentStudent.id, examId)) {
     window.location.href = 'index.html';
 }
 
-var questions = questionService.getByExam(examId);
+let questions = questionService.getByExam(examId);
 if (questions.length === 0) {
     alert('No questions found');
     window.location.href = 'index.html';
@@ -36,14 +36,14 @@ if (questions.length === 0) {
 
 questions = randomOrder(questions);
 
-var currentQuestionIndex = 0;
-var score = 0;
-var totalExam = exam.durationMinutes * 60;
-var timePerQuestion = Math.floor(totalExam / questions.length);
-var questionTimerInterval = null;
-var totalTimerInterval = null;
-var answered = false;
-var studentAnswers = [];
+let  currentQuestionIndex = 0;
+let  score = 0;
+let  totalExam = exam.durationMinutes * 60;
+let  timePerQuestion = Math.floor(totalExam / questions.length);
+let  questionTimerInterval = null;
+let  totalTimerInterval = null;
+let  answered = false;
+let  studentAnswers = [];
 
 //random function
 function randomOrder(array) {
@@ -55,8 +55,8 @@ function totalTimer() {
     totalTimerInterval = setInterval(function () {
         totalExam--;
 
-        var minutes = Math.floor(totalExam / 60);
-        var seconds = totalExam % 60;
+        const  minutes = Math.floor(totalExam / 60);
+        const  seconds = totalExam % 60;
 
         document.getElementById('totalTimeText').textContent = minutes + ' minutes ' + seconds + ' seconds';
         if (totalExam <= 0) {
@@ -87,7 +87,7 @@ function startQuestionTimer() {
 function autoNextQuestion() {
     answered = true;
 
-    var allButtons = document.querySelectorAll('.answer-btn');
+    const allButtons = document.querySelectorAll('.answer-btn');
     for (var i = 0; i < allButtons.length; i++) {
         allButtons[i].disabled = true;
     }
@@ -96,7 +96,7 @@ function autoNextQuestion() {
 }
 
 function saveAnswerAsWrong() {
-    var question = questions[currentQuestionIndex];
+    const question = questions[currentQuestionIndex];
 
     studentAnswers.push({
         questionId: question.id,
@@ -106,7 +106,7 @@ function saveAnswerAsWrong() {
 }
 
 function displayQuestion() {
-    var question = questions[currentQuestionIndex];
+    const question = questions[currentQuestionIndex];
 
     document.getElementById('questionText').textContent = question.questionText;
 
@@ -124,11 +124,11 @@ function displayQuestion() {
     choices = randomOrder(choices);
 
     //buttons
-    var choicesContainer = document.getElementById('choicesContainer');
+    const choicesContainer = document.getElementById('choicesContainer');
     choicesContainer.innerHTML = '';
 
-    for (var i = 0; i < choices.length; i++) {
-        var btn = document.createElement('button');
+    for (let i = 0; i < choices.length; i++) {
+        const btn = document.createElement('button');
         btn.className = 'btn btn-outline-primary answer-btn';
         btn.textContent = choices[i].answerText;
         btn.setAttribute('is-correct', choices[i].isCorrect);
@@ -155,9 +155,9 @@ function selectAnswer(btn) {
         allButtons[i].disabled = true;
     }
 
-    var isCorrect = btn.getAttribute('is-correct') === 'true';
-    var choiceId = btn.getAttribute('choice-id');
-    var question = questions[currentQuestionIndex];
+    const isCorrect = btn.getAttribute('is-correct') === 'true';
+    const choiceId = btn.getAttribute('choice-id');
+    const question = questions[currentQuestionIndex];
 
     studentAnswers.push({
         questionId: question.id,
@@ -191,10 +191,10 @@ document.getElementById('nextBtn').onclick = function () {
 };
 
 function saveResults() {
-    var resultId = resultsService.get().length + 1;
-    var currentDate = new Date().toLocaleDateString();
+    const resultId = resultsService.get().length + 1;
+    const currentDate = new Date().toLocaleDateString();
 
-    var result = new StudentExamResults(
+    const result = new StudentExamResults(
         resultId,
         examId,
         currentStudent.id,
@@ -204,10 +204,10 @@ function saveResults() {
 
     resultsService.store(result);
 
-    for (var i = 0; i < studentAnswers.length; i++) {
-        var answerId = answersService.get().length + 1;
+    for (let i = 0; i < studentAnswers.length; i++) {
+        const answerId = answersService.get().length + 1;
 
-        var answer = new StudentAnswers(
+        const answer = new StudentAnswers(
             answerId,
             studentAnswers[i].questionId,
             studentAnswers[i].selectedChoiceId,
@@ -225,12 +225,12 @@ function showResult() {
     document.getElementById('questionCard').style.display = 'none';
     document.getElementById('resultCard').style.display = 'block';
 
-    var totalScore = 0;
-    for (var i = 0; i < questions.length; i++) {
+    let totalScore = 0;
+    for (let i = 0; i < questions.length; i++) {
         totalScore += questions[i].score;
     }
 
-    var percentage = Math.round((score / totalScore) * 100);
+    const percentage = Math.round((score / totalScore) * 100);
 
     document.getElementById('resultCircle').textContent = percentage + '%';
     document.getElementById('resultText').textContent = 'You got ' + score + ' out of ' + totalScore + ' points.';

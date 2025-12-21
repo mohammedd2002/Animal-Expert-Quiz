@@ -1,30 +1,30 @@
 window.onload = function () {
 
-    var storage = new StorageService();
+    let storage = new StorageService();
 
-    var existingTeachers = storage.getItem('teachers');
+    let existingTeachers = storage.getItem('teachers');
     if (existingTeachers && existingTeachers.length > 0) {
         return;
     }
 
     const imagePath = '../../assets/images/';
 
-    var teachers = [
+    let teachers = [
         new Teacher(1, 'teacher1', '123456', 'Animals'),
         new Teacher(2, 'teacher2', '123456', 'Planets')
     ];
     storage.setItem('teachers', teachers);
 
-    var students = [
+    let students = [
         new Student(1, 'ahmed', '123456', 1, '01012345678', '../../assets/images/photo-1500648767791-00dcc994a43e.png'),
         new Student(2, 'sara', '123456', 2, '01087654321', '../../assets/images/premium_photo-1689551670902-19b441a6afde.png')
     ];
     storage.setItem('students', students);
 
-    var exam = new Exam(1, 'Animals Expert Quiz', 30, 15, 1);
+    let exam = new Exam(1, 'Animals Expert Quiz', 15, 15, 1);
     storage.setItem('exams', [exam]);
 
-    var questions = [
+    let questions = [
         new Question(1, 'What is the king of the jungle?', imagePath + 'lion.jpeg', 'Easy', 7, 1),
         new Question(2, 'Which animal has a long neck?', imagePath + 'giraffe.jpg', 'Easy', 7, 1),
         new Question(3, 'What is the fastest land animal?', imagePath + 'cheetah.jpg', 'Medium', 4, 1),
@@ -43,7 +43,7 @@ window.onload = function () {
     ];
     storage.setItem('questions', questions);
 
-    var choices = [
+    let choices = [
         new Choice(1, 'Lion', true, 1),
         new Choice(2, 'Tiger', false, 1),
         new Choice(3, 'Elephant', false, 1),
@@ -121,6 +121,6 @@ window.onload = function () {
     ];
     storage.setItem('choices', choices);
 
-    var examStudent = new ExamStudent(1, 1, 1);
+    let examStudent = new ExamStudent(1, 1, 1);
     storage.setItem('examStudents', [examStudent]);
 };
