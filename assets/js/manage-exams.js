@@ -28,7 +28,7 @@ const studentResultsAccordion = document.getElementById("student-results-accordi
 
 examIdElement.addEventListener("change", function (event) {
 
-    studentResultsAccordion.innerHTML="";
+    studentResultsAccordion.innerHTML = "";
 
     const examId = Number(examIdElement.value);
 
@@ -37,7 +37,7 @@ examIdElement.addEventListener("change", function (event) {
     examStudents.map(function (student, index) {
 
 
-    
+
         const studentExamResult = studentExamResultService.getResult(examId, student.id);
 
         if (studentExamResult) {
@@ -49,8 +49,8 @@ examIdElement.addEventListener("change", function (event) {
 
                 let studentAnswer = studentAnswersService.getAnswer(studentExamResult.id, examQuestion.id);
                 console.log(studentExamResult.id, examQuestion.id);
-                let studentAnswerText = choiceService.getById(studentAnswer.selectedChoiceId).answerText;
-
+                // fix error 2 
+                let studentAnswerText = studentAnswer.selectedChoiceId ? choiceService.getById(studentAnswer.selectedChoiceId).answerText : "No Answer";
                 examQuestionsWithAnswers.push(
                     {
                         questionText: examQuestion.questionText,
@@ -69,7 +69,7 @@ examIdElement.addEventListener("change", function (event) {
             ));
         }
 
-    
+
     });
 
 
@@ -143,16 +143,21 @@ function createQuestion(number, questionText, imageSrc, studentAnswer) {
     questionTextDiv.innerText = "Q" + number + ": " + questionText;
 
 
-    const questionImage = createImage( "../../assets/images/" + imageSrc
+    const questionImage = createImage("../../assets/images/" + imageSrc
         ,
         "img-thumbnail my-2"
     );
 
 
+    const answerClass = studentAnswer === "No Answer"
+        ? "text-primary"
+        : "text-success";
+
     const studentAnswerSpan = createSpan(
         "Student Answer: " + studentAnswer,
-        "text-success"
+        answerClass
     );
+
 
 
 
@@ -182,8 +187,8 @@ function createImage(src, className) {
     const img = document.createElement("img");
     img.src = src;
     img.className = className;
-    img.style.width="100px";
-    img.style.height="100px";
+    img.style.width = "100px";
+    img.style.height = "100px";
     return img;
 }
 

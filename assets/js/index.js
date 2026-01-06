@@ -4,7 +4,7 @@ const currentStudent = JSON.parse(localStorage.getItem('currentStudent'));
 if (!currentStudent) {
     window.location.href = '../../login.html';
 } else {
-    const userData = currentStudent.data || currentStudent;
+    const userData =  currentStudent;
 
     document.getElementById('studentName').textContent = userData.username;
     document.getElementById('studentGrade').textContent = userData.grade;
