@@ -18,7 +18,7 @@ generateQuestionsBtn.addEventListener("click", function () {
     const questionNumber =
         Number(document.getElementById("exam_question_count").value);
 
-    if (isNaN(questionNumber) || questionNumber < 2) {
+    if (isNaN(questionNumber) || questionNumber < 15) {
         divErrors.appendChild(
             createErrorAlert("Must enter a valid number of questions (minimum 15)")
         );
@@ -113,7 +113,10 @@ function handleStorExam(event) {
 
             const choiceId = storageService.getNextIdForItem("choices");
             const choiceAnswerText = choiceInput.value;
-            const choiceIsCorrect = choiceInput.value.toLowerCase() === correctAnswer;
+
+            const choiceKey = choiceInput.dataset.choice; // a / b / c / d
+            const choiceIsCorrect = choiceKey === correctAnswer;
+            
 
             const choice = new Choice(
                 choiceId,
@@ -258,7 +261,9 @@ function createQuestion(number) {
 
         const questionChoiceLabel = createLabel("Choice " + questionChoice);
         const questionChoiceInput = createInput("text", "form-control question_choice", "", "Choice " + questionChoice, questionChoice.toLowerCase());
+        questionChoiceInput.dataset.choice = questionChoice.toLowerCase();
         const questionChoiceGroup = createGroupInput("col-md-6");
+
 
         questionChoiceGroup.appendChild(questionChoiceLabel);
         questionChoiceGroup.appendChild(questionChoiceInput);

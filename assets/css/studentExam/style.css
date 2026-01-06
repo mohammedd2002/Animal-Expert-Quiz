@@ -1,0 +1,46 @@
+        .answer-btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .timer-bar {
+            height: 12px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: #28a745;
+            width: 100%;
+            transition: width 1s linear;
+        }
+
+        .question-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 5px solid #007bff;
+            margin: 0 auto 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .result-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 8px solid #28a745;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #28a745;
+            font-size: 32px;
+        }

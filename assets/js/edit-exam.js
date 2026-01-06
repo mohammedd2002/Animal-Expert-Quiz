@@ -275,7 +275,7 @@ function handleDeleteQuestion(questionRow, questionId) {
 }
 
 
-function validateDeleteQuestion(minQuestions = 4) {
+function validateDeleteQuestion(minQuestions = 15) {
 
     const questionRows = document.querySelectorAll(".question-row");
     let questionsCount = questionRows.length;

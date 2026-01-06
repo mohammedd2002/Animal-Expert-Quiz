@@ -36,7 +36,6 @@ class StudentExamResultsService extends StorageService {
                 return true;
             }
         }
-        
         return false;
     }
 }
